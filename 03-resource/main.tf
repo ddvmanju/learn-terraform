@@ -9,7 +9,7 @@ data "azurerm_resource_group" "example" {
 
 data "azurerm_subnet" "example" {
   name                 = "default"
-  virtual_network_name = "project-setup-network"
+  virtual_network_name = data.azurerm_virtual_network.example.name
   resource_group_name  = data.azurerm_resource_group.example.name
 
  }
@@ -31,7 +31,7 @@ resource "azurerm_virtual_machine" "main" {
   location              = data.azurerm_resource_group.example.location
   resource_group_name   = data.azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size               = "Standard B2s"
+  vm_size               = "Standard_B2s"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
