@@ -85,3 +85,5 @@ output "env"{
     value = var.env
     }
 
+#   Terraform can picks the files automatically if the values are from *.auto.tfvars
+
