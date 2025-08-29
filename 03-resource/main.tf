@@ -20,9 +20,9 @@ resource "azurerm_network_interface" "main" {
   resource_group_name = data.azurerm_resource_group.example.name
 
   ip_configuration {
-    name                          = "testconfiguration1"
+    name                          = "internal"
     subnet_id                     = data.azurerm_subnet.internal.id
-    private_ip_address_allocation = "static"
+    private_ip_address_allocation = "Dynamic"
   }
 }
 
