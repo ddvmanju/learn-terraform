@@ -49,3 +49,30 @@ output "v1" {
 output "v2" {
     value = "${var.v1} - John"
     }
+
+# Access your variable
+output "o1" {
+    value = var.v1
+    }
+
+# while accessing variable, if we have some string combination then we can access it with ${}
+output "o2" {
+    value = "${var.v1} - John"
+    }
+
+# Access a value of list
+output "o3" {
+    value = var.v2[0]
+    }
+
+#Access a value of list
+output "o3" {
+    value = var.v2[0]
+    }
+
+# Access a value of map
+output "o4" {
+    value = var.v3["cloud"]
+    }
+
+
