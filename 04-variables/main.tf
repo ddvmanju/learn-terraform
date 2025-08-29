@@ -70,4 +70,18 @@ output "o4" {
     value = var.v3["cloud"]
     }
 
+# so far we are hardcoding the values in variable, most times those come as input
+# values from terraform.tfvars, terraform picks this value automatically, other tfars need to be parsed.
+variable "v10" {}
+output "o10" {
+    value = var.v10
+    }
+
+
+# we can also access values from other tfars too, but we need to parse that input
+ex: dev.tfars
+variable "env" {}
+output "env"{
+    value = var.env
+    }
 
