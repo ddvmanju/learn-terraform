@@ -1,5 +1,5 @@
 resource "azurerm_network_interface" "main" {
-  name                = "{var.component}-nic"
+  name                = "${var.component}-nic"
   location            = data.azurerm_resource_group.example.location
   resource_group_name = data.azurerm_resource_group.example.name
 
@@ -22,7 +22,7 @@ resource "azurerm_public_ip" "main" {
   }
 }
 resource "azurerm_virtual_machine" "main" {
-  name                  = "{var.component}"
+  name                  = "${var.component}-vm"
   location              = data.azurerm_resource_group.example.location
   resource_group_name   = data.azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
