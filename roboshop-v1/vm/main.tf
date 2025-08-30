@@ -6,7 +6,7 @@ resource "azurerm_network_interface" "main" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.example.id
-    private_ip_address_allocation = "Static"
+    private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.main.id
   }
 }
@@ -15,7 +15,7 @@ resource "azurerm_public_ip" "main" {
   name                = var.component
   resource_group_name = data.azurerm_resource_group.example.name
   location            = data.azurerm_resource_group.example.location
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 
   tags = {
     component = var.component
