@@ -5,5 +5,5 @@ module "frontend" {
 
 module "catalogue" {
     source = "./vm"
-    component = catalogue
+    component = "catalogue"
     }
