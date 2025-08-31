@@ -22,7 +22,7 @@ resource "azurerm_public_ip" "main" {
   }
 }
 resource "azurerm_virtual_machine" "main" {
-  name                  = "${var.component}-vm"
+  name                  = var.component
   location              = data.azurerm_resource_group.example.location
   resource_group_name   = data.azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
