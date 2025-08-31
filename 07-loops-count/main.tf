@@ -23,4 +23,4 @@ variable "demo" {
   ]
 }
 
-# in reach time we dont use this much
+# in reach time we dont use count length, as it will destroy when there is any modification to the existing code

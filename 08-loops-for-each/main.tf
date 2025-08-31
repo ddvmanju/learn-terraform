@@ -1,11 +1,15 @@
 resource "local_file" "foo" {
   for_each = var.demo
-  content = each.value
+  content = each.value ["content"]
   filename = "/tmp/${each.key}"
 }
 variable "demo" {
   default = {
-    APPLE  = "apple",
-    ORANGE = "Orange"
+    APPLE  = {
+      content = "Apple is good for health"
+    }
+    ORANGE = {
+      content = "Orange is good for vitamin C"
+    }
   }
 }
