@@ -11,6 +11,11 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
+resource "azurerm_network_interface_security_group_association" "main" {
+  network_interface_id      = azurerm_network_interface.main.id
+  network_security_group_id = azurerm_network_security_group
+}
+
 resource "azurerm_public_ip" "main" {
   name                = var.component
   resource_group_name = data.azurerm_resource_group.example.name
@@ -32,13 +37,11 @@ resource "azurerm_virtual_machine" "main" {
   delete_os_disk_on_termination = true
 
   storage_image_reference {
-      publisher = "Canonical"
-      offer     = "0001-com-ubuntu-server-jammy"
-      sku       = "22_04-lts"
-      version   = "latest"
-    }
+    id = "/subscriptions/00f9828e-4aad-42e5-ac92-a3c54883cbd3/resourceGroups/project-setup1/providers/Microsoft.Compute/galleries/customimagedevops"
+              }
+
     storage_os_disk {
-      name              = "${var.component}-vm"
+      name              = var.component
       caching           = "ReadWrite"
       create_option     = "FromImage"
       managed_disk_type = "Standard_LRS"
