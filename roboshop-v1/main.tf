@@ -16,7 +16,7 @@ variable "components"  {
 
         mongodb = {
             name = "mongodb"
-            vm_size = "Standard_DS1_v2"
+            vm_size = "Standard B2s"
         }
     }
 }
