@@ -69,7 +69,7 @@ resource "azurerm_virtual_machine" "main" {
   delete_os_disk_on_termination = true
 
   storage_image_reference {
-    id = "/subscriptions/00f9828e-4aad-42e5-ac92-a3c54883cbd3/resourcegroups/project-setup1/providers/Microsoft.Compute/galleries/custompractice/images/customimage/versions/1.0.0"
+    id = "/subscriptions/00f9828e-4aad-42e5-ac92-a3c54883cbd3/resourceGroups/project-setup1/providers/Microsoft.Compute/galleries/customPractice/images/CustomImage/versions/1.0.0"
   }
 
     storage_os_disk {
