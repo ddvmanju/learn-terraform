@@ -1,3 +1,14 @@
+resource "azurerm_public_ip" "main" {
+  name                = "{var.component}-ip"
+  resource_group_name = data.azurerm_resource_group.example.name
+  location            = data.azurerm_resource_group.example.location
+  allocation_method   = "Static"
+
+  tags = {
+    component = var.component
+  }
+}
+
 resource "azurerm_network_interface" "main" {
   name                = "${var.component}-nic"
   location            = data.azurerm_resource_group.example.location
@@ -11,27 +22,47 @@ resource "azurerm_network_interface" "main" {
   }
 }
 
+resource "azurerm_network_security_group" "main" {
+  name                = "${var.component}-nsg"
+  location            = data.azurerm_resource_group.example.location
+  resource_group_name = data.azurerm_resource_group.example.name
+
+  security_rule {
+    name                       = "main"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+
+  tags = {
+    component = var.component
+  }
+
+resource "azurerm_dns_a_record" "main" {
+  name                = "${var.component}-dev"
+  zone_name           = "azdevops.online"
+  resource_group_name = data.azurerm_resource_group.example.name
+  ttl                 = 10
+  records             = [azurerm_network_interface.main.private_ip_address]
+}
+
 resource "azurerm_network_interface_security_group_association" "main" {
   network_interface_id      = azurerm_network_interface.main.id
   network_security_group_id = azurerm_network_security_group.main.id
 }
 
-resource "azurerm_public_ip" "main" {
-  name                = var.component
-  resource_group_name = data.azurerm_resource_group.example.name
-  location            = data.azurerm_resource_group.example.location
-  allocation_method   = "Static"
 
-  tags = {
-    component = var.component
-  }
-}
 resource "azurerm_virtual_machine" "main" {
   name                  = var.component
   location              = data.azurerm_resource_group.example.location
   resource_group_name   = data.azurerm_resource_group.example.name
   network_interface_ids = [azurerm_network_interface.main.id]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               = "Standard_B2s"
 
   # Uncomment this line to delete the OS disk automatically when deleting the VM
   delete_os_disk_on_termination = true
